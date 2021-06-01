@@ -35,7 +35,7 @@ export default class Home extends Component{
             <div className="absolute flex items-center pointer-events-none top-1/2 left-2 -mt-2">
               <Image src="/search.svg" alt="Search" width={16} height={16} className="text-gray-200"/>
             </div>
-            <input type="text" className="block w-full h-10 p-6 pl-10 border-gray-300 rounded-md shadow-lg" placeholder="0.00" onChange={this.filterLogo}/>
+            <input type="text" className="block w-full h-10 p-6 pl-10 border-gray-300 rounded-md shadow-lg" placeholder="1Password" onChange={this.filterLogo}/>
           </div>
         </main>
 

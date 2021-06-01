@@ -1,7 +1,7 @@
 const request = require("request");
 const isProd = process.env.NODE_ENV === "production";
 
-const BASE_URL = isProd ? "/" : "http://localhost:3000"
+const BASE_URL = isProd ? "https://awesome-logo.vercel.app" : "http://localhost:3000"
 
 export default (req, res) => {
   // path to file
