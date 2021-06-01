@@ -1,3 +1,4 @@
+import { chunk } from "lodash"
 export const GetAllLogos = () => {
   return new Promise((resolve) => {
     try {

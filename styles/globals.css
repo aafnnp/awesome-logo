@@ -12,3 +12,18 @@ button,input{
 footer{
   @apply flex justify-center items-center py-4 border-t border-gray-100 text-gray-600;
 }
+.logos-more{
+  @apply flex items-center justify-center mx-auto my-10 text-white bg-gradient-to-r from-green-400 to-blue-500 hover:from-pink-500 hover:to-yellow-500 w-32 h-32 rounded-full cursor-pointer transition-all duration-300 ease-linear;
+}
+.logo{
+  @apply  shadow-md p-4 rounded;
+}
+.logo-img{
+  @apply  flex justify-center items-center h-24 duration-300 ease-linear;
+}
+.logo-img:hover{
+  transform: scale(1.2);
+}
+.logo .download{
+  @apply flex items-center opacity-50 text-sm;
+}

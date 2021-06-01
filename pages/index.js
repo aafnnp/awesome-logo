@@ -3,19 +3,28 @@ import Head from 'next/head'
 import Image from 'next/image'
 import Logo from "../components/Logo"
 import { GetAllLogos } from "../utils"
-import { render } from 'react-dom'
+import { debounce,chunk,slice,flatten } from "lodash"
 
 export default class Home extends Component{
   constructor(props) {
     super(props)
     this.state = {
-      logos:this.props.logos
+      logos: this.props.logos[0],
+      page: 0,
+      length:this.props.logos.length
     }
     this.filterLogo = this.filterLogo.bind(this);
+    this.moreLogos = this.moreLogos.bind(this);
   }
 
   filterLogo(event) {
-    this.setState({logos:this.props.logos.filter(item=>item.includes(event.target.value))})
+    debounce(()=>this.setState({logos:this.props.logos.filter(item=>item.includes(event.target.value))}),1000)
+  }
+
+  moreLogos() {
+    const { page, length } = this.state;
+    if (page >= length) return false;
+    this.setState({...this.state,page:page+1,logos:flatten(slice(this.props.logos, 0, page + 1))})
   }
 
   render() {
@@ -40,7 +49,8 @@ export default class Home extends Component{
         </main>
 
         <div className="logos p-10">
-          <Logo data={ this.state.logos }/>
+          <Logo data={this.state.logos} />
+          <div className="logos-more" onClick={this.moreLogos}>More Logos</div>
         </div>
 
 
@@ -66,7 +76,7 @@ export async function getStaticProps() {
   const logos = await GetAllLogos();
   return {
     props: {
-      logos
+      logos:chunk(logos,30)
     }
   }
 }
