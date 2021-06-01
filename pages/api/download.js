@@ -1,7 +1,4 @@
 const request = require("request");
-const isProd = process.env.NODE_ENV === "production";
-
-const BASE_URL = isProd ? "https://awesome-logo.vercel.app" : "http://localhost:3000"
 
 export default (req, res) => {
   // path to file
@@ -15,7 +12,7 @@ export default (req, res) => {
 
   // send request to the original file
   request
-    .get(`${BASE_URL}/logos/${ filePath }`) // download original image
+    .get(`https://apis-kohl.vercel.app/logos/${ filePath }`) // download original image
     .on("error", function(err) {
       res.writeHead(404, { "Content-Type": "text/html" });
       res.write("<h1>404 not found</h1>");
