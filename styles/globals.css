@@ -1,0 +1,14 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+button,input{
+  @apply focus:border-transparent outline-none;
+}
+.main{
+  @apply grid min-h-screen;
+  grid-template-rows:20vh 1fr max(80px);
+}
+footer{
+  @apply flex justify-center items-center py-4 border-t border-gray-100 text-gray-600;
+}

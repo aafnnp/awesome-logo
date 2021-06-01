@@ -1,0 +1,25 @@
+{
+  "name": "awesome-logo",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/Manonicu/awesome-logo.git",
+  "author": "Manon.icu <gemini0525@foxmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start"
+  },
+  "dependencies": {
+    "next": "10.2.3",
+    "react": "17.0.2",
+    "react-dom": "17.0.2",
+    "request": "^2.88.2"
+  },
+  "devDependencies": {
+    "@svgr/webpack": "^5.5.0",
+    "autoprefixer": "^10.2.6",
+    "postcss": "^8.3.0",
+    "tailwindcss": "^2.1.2"
+  }
+}
