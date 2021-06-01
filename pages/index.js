@@ -2,29 +2,45 @@ import React, { Component } from "react"
 import Head from 'next/head'
 import Image from 'next/image'
 import Logo from "../components/Logo"
-import { GetAllLogos } from "../utils"
-import { debounce,chunk,slice,flatten } from "lodash"
+import { debounce, chunk, slice, flatten } from "lodash"
+import axios from "axios"
 
 export default class Home extends Component{
+  state = {
+    chunkLogos:[],
+      logos: [],
+      page: 0,
+      filter:''
+  }
   constructor(props) {
     super(props)
-    this.state = {
-      logos: this.props.logos[0],
-      page: 0,
-      length:this.props.logos.length
-    }
     this.filterLogo = this.filterLogo.bind(this);
     this.moreLogos = this.moreLogos.bind(this);
   }
 
+  componentDidMount() {
+    const chunkLogos = chunk(this.props.logos,30);
+    this.setState({...this.state,chunkLogos,logos:chunkLogos[0]})
+  }
+
   filterLogo(event) {
-    debounce(()=>this.setState({logos:this.props.logos.filter(item=>item.includes(event.target.value))}),1000)
+    this.setState({ ...this.state, filter: event.target.value });
+
+    if (event.target.value) {
+      this.setState({ logos: this.props.logos.filter(item => item.name.includes(event.target.value)) })
+    } else {
+      this.setState({logos: this.props.logos,page: 0})
+    }
   }
 
   moreLogos() {
-    const { page, length } = this.state;
-    if (page >= length) return false;
-    this.setState({...this.state,page:page+1,logos:flatten(slice(this.props.logos, 0, page + 1))})
+    const { page,chunkLogos } = this.state;
+    if (page >= chunkLogos.length) return false;
+    this.setState({
+      ...this.state,
+      page: page + 1,
+      logos: flatten(chunkLogos.slice(0, page + 1))
+    })
   }
 
   render() {
@@ -50,7 +66,10 @@ export default class Home extends Component{
 
         <div className="logos p-10">
           <Logo data={this.state.logos} />
-          <div className="logos-more" onClick={this.moreLogos}>More Logos</div>
+          {
+            this.state.page >= this.state.chunkLogos.length ? <div className="logos-more">No More</div> :<div className="logos-more" onClick={this.moreLogos}>More Logos</div>
+          }
+
         </div>
 
 
@@ -73,10 +92,10 @@ export default class Home extends Component{
 }
 
 export async function getStaticProps() {
-  const logos = await GetAllLogos();
+  const {data} = await axios.get("https://apis.manon.icu/logos");
   return {
     props: {
-      logos:chunk(logos,30)
+      logos:data.code === 0 ? data.data:[]
     }
   }
 }

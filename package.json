@@ -6,12 +6,13 @@
   "author": "Manon.icu <gemini0525@foxmail.com>",
   "license": "MIT",
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev -p 4000",
     "build": "next build",
     "start": "next start"
   },
   "dependencies": {
     "animejs": "^3.2.1",
+    "axios": "^0.21.1",
     "lodash": "^4.17.21",
     "next": "10.2.3",
     "react": "17.0.2",

@@ -1,4 +1,7 @@
 module.exports = {
+  images: {
+    domains:["apis.manon.icu","apis-kohl.vercel.app"]
+  },
   webpack(config, { isServer }) {
     if (!isServer) {
 			config.node = {
