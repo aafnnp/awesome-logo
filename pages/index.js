@@ -27,7 +27,7 @@ export default class Home extends Component{
     this.setState({ ...this.state, filter: event.target.value });
 
     if (event.target.value) {
-      const logos = this.props.logos.filter(item => item.name.includes(event.target.value))
+      const logos = this.props.logos.filter(item => item.name.toLowerCase().includes(event.target.value.toLowerCase()))
       this.setState({ logos: logos,chunkLogos:chunk(logos,30) })
     } else {
       this.setState({logos: this.props.logos,page: 0})
