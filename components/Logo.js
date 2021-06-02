@@ -1,10 +1,30 @@
 import React, { Component } from "react"
 import Image from 'next/image'
-import Link from 'next/link'
-import { debounce, chunk, slice, flatten } from "lodash"
+import axios from "axios"
 export default class Logos extends Component {
   constructor(props) {
     super(props)
+  }
+
+  async downloadFile({ filename,filetype}) {
+    const result = await axios({
+      method:"POST",
+      url: "https://apis.manon.icu/logos/",
+      data: { filename, filetype }
+    })
+    console.log(result.data.data,"data")
+
+    const bufferArray = new Uint8Array(result.data.data.data)
+    const url = window.URL.createObjectURL(new Blob([bufferArray]));
+    const _a = document.createElement("a");
+    _a.style.display = 'none';
+    _a.href = url
+    _a.setAttribute('download', `${filename}.${filetype}`);
+    document.body.appendChild(_a);
+    _a.click()
+    window.URL.revokeObjectURL(_a.href);
+    document.body.removeChild(_a)
+
   }
 
   render() {
@@ -16,8 +36,10 @@ export default class Logos extends Component {
           <h3>{logo.name}</h3>
           <div className="download">
             <Image src="/download.svg" width={16} height={16} />
-            <Link href={logo.route}><a className="ml-2">SVG</a></Link>
-            {/* <Link href={`/logos/${logo}`}><a className="ml-2">PNG</a></Link> */}
+            <span className="ml-2 cursor-pointer" onClick={this.downloadFile.bind(this,{filename:logo.name,filetype:'svg'})}>SVG</span>
+            <span className="ml-2 cursor-pointer" onClick={this.downloadFile.bind(this,{filename:logo.name,filetype:'png'})}>PNG</span>
+            <span className="ml-2 cursor-pointer" onClick={this.downloadFile.bind(this,{filename:logo.name,filetype:'jpg'})}>JPG</span>
+            <span className="ml-2 cursor-pointer" onClick={this.downloadFile.bind(this,{filename:logo.name,filetype:'webp'})}>Webp</span>
           </div>
         </div>
       })

@@ -2,7 +2,7 @@ import React, { Component } from "react"
 import Head from 'next/head'
 import Image from 'next/image'
 import Logo from "../components/Logo"
-import { debounce, chunk, slice, flatten } from "lodash"
+import { chunk, flatten } from "lodash"
 import axios from "axios"
 
 export default class Home extends Component{
@@ -27,7 +27,8 @@ export default class Home extends Component{
     this.setState({ ...this.state, filter: event.target.value });
 
     if (event.target.value) {
-      this.setState({ logos: this.props.logos.filter(item => item.name.includes(event.target.value)) })
+      const logos = this.props.logos.filter(item => item.name.includes(event.target.value))
+      this.setState({ logos: logos,chunkLogos:chunk(logos,30) })
     } else {
       this.setState({logos: this.props.logos,page: 0})
     }
@@ -67,7 +68,7 @@ export default class Home extends Component{
         <div className="logos p-10">
           <Logo data={this.state.logos} />
           {
-            this.state.page >= this.state.chunkLogos.length ? <div className="logos-more">No More</div> :<div className="logos-more" onClick={this.moreLogos}>More Logos</div>
+            this.state.logos.length<30?"":this.state.page >= this.state.chunkLogos.length ? <div className="logos-more">No More</div> :<div className="logos-more" onClick={this.moreLogos}>More Logos</div>
           }
 
         </div>
