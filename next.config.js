@@ -1,9 +1,12 @@
 module.exports = {
+  future: {
+    webpack5:true
+  },
   images: {
     domains:["apis.manon.icu"]
   },
-  webpack(config, { isServer }) {
-    if (!isServer) {
+  webpack(config, options) {
+    if (!options.isServer) {
 			config.node = {
 				fs: "empty",
 				path: true
