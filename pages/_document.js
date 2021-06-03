@@ -13,7 +13,7 @@ class MyDocument extends Document {
 				<body>
 					<Main />
 					<NextScript />
-					<script charset="UTF-8" id="LA_COLLECT" src="//sdk.51.la/js-sdk-pro.min.js?id=JKh4xVzhOmDgths3&ck=JKh4xVzhOmDgths3"></script>
+					<script id="LA_COLLECT" src="//sdk.51.la/js-sdk-pro.min.js?id=JKh4xVzhOmDgths3&ck=JKh4xVzhOmDgths3"></script>
 				</body>
 			</Html>
 		);
