@@ -6,12 +6,19 @@ module.exports = {
     domains:["apis.manon.icu"]
   },
   webpack(config, options) {
-    if (!options.isServer) {
-			config.node = {
-				fs: "empty",
-				path: true
-			};
-		}
+    console.log(config.resolve)
+    config.resolve = {
+      ...config.resolve,
+      fallback: {
+        fs:false
+      }
+    }
+    // if (!options.isServer) {
+		// 	config.node = {
+		// 		fs: "empty",
+		// 		path: true
+		// 	};
+		// }
     config.module.rules.push({
       test: /\.svg$/,
       use: ["@svgr/webpack"]
